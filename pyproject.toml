@@ -1,0 +1,62 @@
+[tool.poetry]
+name = "simple-singleton"
+version = "0.1.0"
+description = "Provides a singleton decorator to easily convert a class to a singleton"
+authors = ["batu1579 <51915056+batu1579@users.noreply.github.com>"]
+license = "MPL 2.0"
+repository = "https://github.com/batu1579/simple-singleton"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+pytest-cov = "^4.1.0"
+black = "^24.3.0"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+# Tests
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+console_output_style = "progress"
+addopts = "-vs --strict-markers --cov=simple_singleton --cov-report=html"
+python_files = ["test_*.py", "check_*.py", "example_*.py"]
+python_classes = ["Test*", "*Suite", "*Example"]
+python_functions = ["test_*", "check_*", "example_*"]
+xfail_strict = true
+
+[tool.coverage.run]
+branch = true
+concurrency = ["thread"]
+source = ["simple_singleton"]
+omit = ["*/__init__.py"]
+
+[tool.coverage.report]
+fail_under = 100
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if self\\.debug:",
+    "pass",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+]
+
+[tool.coverage.html]
+directory = "coverage_report"
+
+# Lint
+
+[tool.black]
+line-length = 88
+target-version = ['py38']
+
+[tool.isort]
+profile = "black"
